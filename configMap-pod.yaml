@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  labels:
+    name: my-pod
+spec:
+  containers:
+  - name: my-pod
+    image: nginx:latest
+    volumeMounts:
+      - name: config-volume 
+        mountPath: /etc/config
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+  volumes:
+    - name: config-volume
+      configMap:
+        name: my-config-map
+
+# this will mount the configmap as a volume at the path /etc/config in the pod allowing you to access the configuration data from the container 
+

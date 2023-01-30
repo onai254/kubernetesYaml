@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: onai_app
+  labels:
+    name: onai_app
+spec:
+  containers:
+  - name: onai_app
+    image: nginx:latest
+    volumeMounts:
+      - name: host-volume
+        mountPath: /var/www/html
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 80
+  volumes:
+    - name: host-volume
+      hostPath:
+        path: /var/www/html
+
+# creates a volume called host-name that is mounted at the /var/www/html parth within the pod  
+# any data writen to this location will be persisted in the host node's filesystem and will be available to all containers within the pod 
